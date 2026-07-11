@@ -1,12 +1,10 @@
 import React from 'react';
 import './ProductView.css';
+import { useParams } from 'react-router-dom';
 
 function ProductView() {
-  return (
-    <div className="product-view">
-      <h1>Product View</h1>
-    </div>
-  );
+  const { id } = useParams();
+  return (<h1>Producto con id: {id}</h1>);
 }
 
 export default ProductView;
