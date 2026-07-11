@@ -2,3 +2,13 @@
   text-align: center;
   min-height: 100vh;
 }
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.contenido {
+  flex: 1;
+  padding: 20px;
+}
