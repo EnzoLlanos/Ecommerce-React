@@ -8,10 +8,11 @@ import NewProduct from "./pages/Products/NewProduct/NewProduct";
 import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/Errors/NotFound/NotFound";
 import NavBar from './components/NavBar/NavBar';
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
-    <div className='layout'>
+    <Layout>
 
       <NavBar></NavBar>
 
@@ -26,7 +27,7 @@ function App() {
           <Route path= "*" element= {<NotFound/>}/>
         </Routes>
       </main>
-    </div>
+    </Layout>
   );
 }
 

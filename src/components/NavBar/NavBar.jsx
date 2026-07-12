@@ -6,8 +6,10 @@ function NavBar(){
   const [menu,setMenu] = useState(false)
   return(
 
-    <div className="NavBar">
-      <button onClick={() => setMenu(!menu)}>{menu ? "|  X  |" : "|  ☰  |"}</button>
+    <div className={`NavBar ${menu ? "open" : "closed"}`}>
+      <button onClick={()=> setMenu (!menu)}>
+        {menu ? "✕" : "☰"}
+      </button>
       {menu && (
 
         <ul>
