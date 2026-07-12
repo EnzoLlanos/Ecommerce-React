@@ -3,6 +3,7 @@ import "./Header.scss";
 function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false}) {
     return(
         <header className="header">
+            
             <h1>{titulo}</h1>
 
             {mostrarBuscador && (

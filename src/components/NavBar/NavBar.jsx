@@ -1,24 +1,20 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { NavLink } from "react-router-dom"
 import "./NavBarStyle.css"
 
-function NavBar(){
-  const [menu,setMenu] = useState(false)
+function NavBar({menuAbierto, setMenuAbierto}) {
   return(
-
-    <div className={`NavBar ${menu ? "open" : "closed"}`}>
-      <button onClick={()=> setMenu (!menu)}>
-        {menu ? "✕" : "☰"}
-      </button>
-      {menu && (
-
+    <>
+    <aside className={`NavBar ${menuAbierto ? "open" : "closed"}`}>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/profile">profile</Link></li>
+          <li><NavLink end to="/">Home</NavLink></li>
+          <li><NavLink to="/products">Products</NavLink></li>
+          <li><NavLink to="/profile">profile</NavLink></li>
         </ul>
-      )}
-    </div>
+    </aside>
+    <button className="menu-toggle" onClick={() => setMenuAbierto(!menuAbierto)} >
+      {menuAbierto ? "✕" : "☰"}
+    </button>
+    </>
   )
 }
 
