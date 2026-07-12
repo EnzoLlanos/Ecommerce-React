@@ -1,12 +1,14 @@
 .NavBar {
-    background: white;
+    background: rgb(88, 87, 87);
     min-height: 100vh;
     transition: width .3s ease;
     overflow: hidden;
+    
 }
 
 .NavBar.open {
     width: 220px;
+    
 }
 
 .NavBar.closed {
@@ -19,6 +21,7 @@
     height: 50px;
     font-size: 24px;
     border: none;
-    background: white;
+    background: black;
+    color: white;
     cursor: pointer;
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import './ProductsList.css';
-
+import Header from '../../../components/Header/Header';
 function ProductsList() {
   return (
-    <div className="products-list">
-      <h1>Products List</h1>
-    </div>
+    <>
+      <Header titulo={"Lista de Productos"} mostrarBuscador={true} mostrarBotonNuevo={true}/>
+    </>
   );
 }
 

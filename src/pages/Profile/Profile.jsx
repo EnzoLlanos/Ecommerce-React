@@ -1,8 +1,11 @@
+import React from 'react';
+import './Profile.css';
+import Header from '../../components/Header/Header';
 function Profile(){
   return(
-    <div>
-      <h1>Profile</h1>
-    </div>
+    <>
+      <Header titulo={"Mi Perfil"} mostrarBuscador={false}/>
+    </>
   )
 }
 
