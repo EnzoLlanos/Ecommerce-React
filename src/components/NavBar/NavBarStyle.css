@@ -1,7 +1,8 @@
 .NavBar {
+    position: relative;
     background: rgb(34, 34, 34);
     min-height: 100vh;
-    transition: width .3s ease;
+    transition: width .5s ease;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -11,24 +12,35 @@
 }
 
 .NavBar.closed {
-    width: 0px;
+    width: 70px;
     background: rgb(34, 34, 34);
 }
 
-.NavBar button {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    border: none;
-    background: rgb(34, 34, 34);
+
+.NavBar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    height: 60px;
+}
+
+.NavBar-logo {
     color: white;
-    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity .2s;
+}
+
+.NavBar.closed .NavBar-logo {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
 }
 
 .menu-toggle {
-    position: fixed;
-    top: 10px;
-    left: 10px;
     width: 50px;
     height: 50px;
     font-size: 24px;
@@ -37,34 +49,45 @@
     color: white;
     cursor: pointer;
     z-index: 100;
+    flex-shrink: 0;
 }
-
 .NavBar ul {
     list-style: none;
     padding: 10px;
     margin: 0;
-    padding-top: 60px;
 }
 
 .NavBar li {
     margin-bottom: 6px;
 }
 
-.NavBar a {
-    display: block;
-    padding: 12px 16px;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: background-color .2s ease;
+.NavBar a{
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    padding:12px 16px;
 }
 
 .NavBar a:hover {
     background: rgb(60, 60, 60);
+    transition: .5s;
 }
 
 .NavBar a.active {
     background: rgb(88, 88, 88);
+}
+.icon{
+    min-width:24px;
+    font-size:22px;
+}
+.text{
+    transition:.5s;
+}
+.NavBar.closed .text{
+    opacity:0;
+    width:0;
+    overflow:hidden;
 }
 
 a {
@@ -72,15 +95,5 @@ a {
     text-decoration: none;
 }
 
-.NavBar-header {
-    display: flex;
-    padding: 10px;
-}
 
-.NavBar.open .NavBar-header {
-    justify-content: flex-end;
-}
 
-.NavBar.closed .NavBar-header {
-    justify-content: center;
-}
