@@ -1,10 +1,12 @@
 import React from 'react';
 import './ProductView.css';
 import { useParams } from 'react-router-dom';
+import useHeader from '../../../hooks/useHeader';
 
 function ProductView() {
   const { id } = useParams();
-  return (<h1>Producto con id: {id}</h1>);
+  useHeader({ titulo: `Producto #${id}` });
+  return <div>Producto con id: {id}</div>;
 }
 
 export default ProductView;

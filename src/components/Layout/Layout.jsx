@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import NavBar from "../NavBar/NavBar";
+import Header from "../Header/Header";
+import { useHeaderConfig } from "../../context/HeaderContext";
 
 function Layout({ children }) {
+  const {headerConfig} = useHeaderConfig();
   const [menuAbierto, setMenuAbierto] = useState(true);
   const navRef = useRef(null);
 
@@ -23,6 +26,7 @@ function Layout({ children }) {
             <NavBar menuAbierto={menuAbierto} setMenuAbierto={setMenuAbierto}/>
         </div>
       <main className="app-content">
+        <Header {...headerConfig}/>
         {children}
       </main>
     </div>

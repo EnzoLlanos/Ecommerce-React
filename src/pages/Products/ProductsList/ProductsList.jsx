@@ -1,12 +1,10 @@
 import React from 'react';
 import './ProductsList.css';
-import Header from '../../../components/Header/Header';
+import useHeader from '../../../hooks/useHeader';
+
 function ProductsList() {
-  return (
-    <>
-      <Header titulo={"Lista de Productos"} mostrarBuscador={true} mostrarBotonNuevo={true}/>
-    </>
-  );
+  useHeader({ titulo: "Lista de Productos", mostrarBuscador: true, mostrarBotonNuevo: true });
+  return <div>Lista de Productos</div>;
 }
 
 export default ProductsList;

@@ -1,12 +1,10 @@
 import React from 'react';
 import './Profile.css';
-import Header from '../../components/Header/Header';
+import useHeader from '../../hooks/useHeader';
+
 function Profile(){
-  return(
-    <>
-      <Header titulo={"Mi Perfil"} mostrarBuscador={false}/>
-    </>
-  )
+  useHeader({ titulo: "Mi Perfil", mostrarBuscador: false });
+  return <div>Mi Perfil</div>;
 }
 
 export default Profile
