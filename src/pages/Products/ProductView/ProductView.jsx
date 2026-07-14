@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './ProductView.css';
 import { useParams } from 'react-router-dom';
+import useHeader from '../../../hooks/useHeader';
 
 function ProductView() {
+  useHeader({ titulo: `Producto #${id}` });
   const [product,setProduct] = useState({})
   const [edit,setEdit] = useState(false)
 
@@ -17,7 +19,7 @@ function ProductView() {
   const [imgError,setImgError] = useState(false)
 
   const { id } = useParams();
-
+  
   const getProduct = async()=> {
 
     const resp = await fetch(`http://localhost:3000/api/productos/${id}`,{

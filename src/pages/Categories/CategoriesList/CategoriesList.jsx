@@ -1,12 +1,10 @@
 import React from 'react';
 import './CategoriesList.css';
+import useHeader from '../../../hooks/useHeader';
 
 function CategoriesList() {
-  return (
-    <div className="categories-list">
-      <h1>Categories List</h1>
-    </div>
-  );
+  useHeader({titulo:"Categorias", mostrarBotonNuevo: true})
+  return <div>categorias</div>
 }
 
 export default CategoriesList;

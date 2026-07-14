@@ -1,0 +1,65 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 16px;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle:hover {
+    background: rgb(60, 60, 60);
+}
+
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.buscador {
+    width: 60px;
+    height: 50px;
+    padding: 8px 12px;
+    border-radius: 25px;
+    border: 1px solid #555;
+    background: #2f2f2f;
+    color: white;
+    outline: none;
+
+    transition: width .3s ease,
+                border-radius .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+}
+
+.buscador:focus {
+    width: 300px;
+    border-radius: 20px;
+    border-color: #696969;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.801);
+    text-align: left;
+}
+
+.boton-nuevo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #505052;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}

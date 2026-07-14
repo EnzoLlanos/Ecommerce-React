@@ -1,22 +1,51 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { NavLink } from "react-router-dom"
 import "./NavBarStyle.css"
+import {FaHome, FaBoxOpen, FaUser, FaTags} from "react-icons/fa"
+import { useHeaderConfig } from "../../context/HeaderContext"
 
-function NavBar(){
-  const [menu,setMenu] = useState(false)
+function NavBar() {
+  const { setMenuAbierto } = useHeaderConfig();
+
+  const handleClick = () => setMenuAbierto(true);
+
   return(
+    <nav className="NavBar">
+      <div className="NavBar-header">
+        <span className="NavBar-logo">Mi Ecommerce</span>
+      </div>
 
-    <div className="NavBar">
-      <button onClick={() => setMenu(!menu)}>{menu ? "|  X  |" : "|  ☰  |"}</button>
-      {menu && (
+      <ul className="NavBar-links" onClick={handleClick}>
+        <li>
+          <NavLink end to="/">
+            <FaHome className="icon"/>
+            <span className="text">Inicio</span>
+          </NavLink>
+        </li>
 
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/profile">profile</Link></li>
-        </ul>
-      )}
-    </div>
+        <li>
+          <NavLink to="/products">
+            <FaBoxOpen className="icon"/>
+            <span className="text">Productos</span>
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/categories">
+            <FaTags className="icon"/>
+            <span className="text">Categorías</span>
+          </NavLink>
+        </li>
+      </ul>
+
+      <ul className="NavBar-bottom">
+        <li>
+          <NavLink to="/profile" className="nav-profile">
+            <FaUser className="icon"/>
+            <span className="text">Perfil</span>
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   )
 }
 

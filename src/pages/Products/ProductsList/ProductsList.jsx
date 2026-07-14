@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './ProductsList.css';
+import useHeader from '../../../hooks/useHeader';
 
 function ProductsList() {
+  useHeader({ titulo: "Lista de Productos", mostrarBuscador: true, mostrarBotonNuevo: true });
   const [products, setProducts] = useState([])
   const getProducts = async() => {
     const resp = await fetch("http://localhost:3000/api/productos/",{

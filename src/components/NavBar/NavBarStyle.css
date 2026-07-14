@@ -1,3 +1,96 @@
-.NavBar{
-  background-color: rgb(231, 118, 118);
+.nav-wrapper {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    flex-shrink: 0;
+}
+
+.nav-wrapper.open {
+    width: 260px;
+}
+
+.NavBar {
+    width: 260px;
+    height: 100vh;
+    background: rgb(34, 34, 34);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.NavBar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 16px;
+    height: 60px;
+}
+
+.NavBar-logo {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.NavBar ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.NavBar li {
+    margin-bottom: 6px;
+}
+
+.NavBar a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    margin-left: 6px;
+}
+
+.NavBar a:hover {
+    background: rgb(60, 60, 60);
+    margin-left: 3px;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.NavBar a.active {
+    background: rgb(88, 88, 88);
+    margin-left: 6px;
+    border-radius: 8px;
+}
+
+.icon {
+    min-width: 24px;
+    min-height: 24px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.NavBar-links {
+    flex: 1;
+}
+
+.NavBar-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+}
+
+.nav-profile {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border-radius: 8px;
+}
+
+.nav-profile:hover {
+    background-color: rgba(255, 255, 255, 0.18) ;
+    color: #ffffff;
 }
