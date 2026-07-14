@@ -9,13 +9,14 @@ import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/Errors/NotFound/NotFound";
 import NavBar from './components/NavBar/NavBar';
 
+
+
 function App() {
   return (
     <div className='layout'>
 
       <NavBar></NavBar>
-
-
+      
       <main className='contenido'>
         <Routes>
           <Route path="/" element= {<Home />}/>
