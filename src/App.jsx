@@ -10,6 +10,7 @@ import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/Errors/NotFound/NotFound";
 import Layout from './components/Layout/Layout';
 import CategoriesList from './pages/Categories/CategoriesList/CategoriesList';
+import NewCategories from './pages/Categories/NewCategories/NewCategories';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
             <Route path="/products" element= {<ProductsList/>}/>
             <Route path= "/products/new" element= {<NewProduct/>}/>
             <Route path= "/Products/:id" element= {<ProductView/>}/>
-            <Route path='/categorias' element={<CategoriesList/>}/>
+            <Route path='/categories' element={<CategoriesList/>}/>
+            <Route path='/categories/new' element={<NewCategories/>}/>
             <Route path= "/profile" element= {<Profile/>}/>
             <Route path= "*" element= {<NotFound/>}/>
           </Routes>

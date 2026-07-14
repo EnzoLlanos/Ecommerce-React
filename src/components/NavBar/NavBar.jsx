@@ -14,7 +14,7 @@ function NavBar() {
         <span className="NavBar-logo">Mi Ecommerce</span>
       </div>
 
-      <ul onClick={handleClick}>
+      <ul className="NavBar-links" onClick={handleClick}>
         <li>
           <NavLink end to="/">
             <FaHome className="icon"/>
@@ -30,14 +30,16 @@ function NavBar() {
         </li>
 
         <li>
-          <NavLink to="/categorias">
+          <NavLink to="/categories">
             <FaTags className="icon"/>
             <span className="text">Categorías</span>
           </NavLink>
         </li>
+      </ul>
 
+      <ul className="NavBar-bottom">
         <li>
-          <NavLink to="/profile">
+          <NavLink to="/profile" className="nav-profile">
             <FaUser className="icon"/>
             <span className="text">Perfil</span>
           </NavLink>
