@@ -6,7 +6,7 @@ import { useHeaderConfig } from "../../context/HeaderContext"
 function NavBar() {
   const { setMenuAbierto } = useHeaderConfig();
 
-  const handleClick = () => setMenuAbierto(false);
+  const handleClick = () => setMenuAbierto(true);
 
   return(
     <nav className="NavBar">
