@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import './ProductsList.css';
 
 function ProductsList() {
@@ -12,7 +14,6 @@ function ProductsList() {
     })
     const data = await resp.json();
     setProducts(data.data);
-    console.log(data.data)
   }
 
   useEffect(() => {
@@ -23,14 +24,33 @@ function ProductsList() {
   return (
     <div className="products-list">
       <h1>Products List</h1>
-      {products.map((p) => (
-        <div>
 
-          <p>{p.nombre}</p>
-          <p>${p.precio}</p>
-          <p></p>
-        </div>
-      ))}
+      <table>
+
+        <thead>
+          <tr>
+            <th>IMG</th>
+            <th>Nombre</th>
+            <th>Stock</th>
+            <th>Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {products.map((p) => (
+            <tr key={p.id}>
+              <td><img src={p.img} style={{ width: "60px", height: "60px", objectFit: "cover" }} alt="" /></td>
+              <td>{p.nombre}</td>
+              <td>{p.stock}</td>
+              <td>${p.precio}</td>
+              <td><NavLink to={`/products/${p.id}`}>Ver mas</NavLink></td>
+            </tr>
+          ))}
+
+        </tbody>
+      </table>
     </div>
   );
 }
