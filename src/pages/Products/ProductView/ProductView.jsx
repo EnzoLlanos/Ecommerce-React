@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './ProductView.css';
 import { useParams } from 'react-router-dom';
 import useHeader from '../../../hooks/useHeader';
-import { Link } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
 
 function ProductView() {
   
@@ -21,7 +19,7 @@ function ProductView() {
   const [imgError,setImgError] = useState(false)
 
   const { id } = useParams();
-  useHeader({ titulo: `Producto / #${id}` });
+  useHeader({ titulo: `Producto / #${id}`, backLink: "/products" });
   const getProduct = async()=> {
 
     const resp = await fetch(`http://localhost:3000/api/productos/${id}`,{
@@ -51,9 +49,6 @@ function ProductView() {
 
   return (
     <>
-    <Link to="/products">
-      <FaArrowLeft />
-    </Link>
       <button onClick={() => setEdit(!edit)}>Editar</button>
       {edit ? (
         <div>

@@ -7,6 +7,7 @@ export function HeaderProvider({ children }) {
     titulo: "",
     mostrarBuscador: true,
     mostrarBotonNuevo: false,
+    backLink: null,
   })
 
   const [menuAbierto, setMenuAbierto] = useState(false);

@@ -63,3 +63,23 @@
     font-size: 28px;
     cursor: pointer;
 }
+.header-title-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+
+    &:hover .header-back-icon {
+        transform: translateX(-3px);
+    }
+}
+
+.header-back-icon {
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.header-title-link h1 {
+    margin: 0;
+}

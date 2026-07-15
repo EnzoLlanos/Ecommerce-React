@@ -1,8 +1,9 @@
 import "./Header.scss";
 import { useHeaderConfig } from "../../context/HeaderContext";
-import { FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaBars, FaArrowLeft } from "react-icons/fa";
 
-function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false}) {
+function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, backLink = null}) {
     const { menuAbierto, setMenuAbierto } = useHeaderConfig();
     return(
         <header className="header">
@@ -11,7 +12,14 @@ function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false}) {
                 <FaBars/>
             </button>
 
+            {backLink ? (
+                <Link to={backLink} className="header-title-link">
+                <FaArrowLeft className="header-back-icon" />
+                <h1>{titulo}</h1>
+                </Link>
+            ) : (
             <h1>{titulo}</h1>
+)}
 
             <div className="header-actions">
                {mostrarBuscador && (
