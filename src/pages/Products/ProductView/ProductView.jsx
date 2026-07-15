@@ -17,8 +17,7 @@ function ProductView() {
   const [categoria,setCategoria] = useState("")
   const [imgLink,setImgLink] = useState("")
 
-  const [newImg,setNewImg] = useState("")
-  const [imgError,setImgError] = useState(false)
+  const [botonEdit,setBotonEdit] = useState("Editar")
 
   const { id } = useParams();
   useHeader({ titulo: `Producto / #${id}` });
@@ -44,6 +43,27 @@ function ProductView() {
 
   }
 
+  const editProduct = async() => {
+    const resp = await fetch(`http://localhost:3000/api/productos/Edit/${id}`,{
+      method : "PUT",
+      headers : {
+        "Content-Type": "application/json",
+      },
+      body : JSON.stringify({
+        nombre,
+        precio,
+        descripcion,
+        stock,
+        categoria,
+        img: imgLink
+      })
+    })
+
+    const data = await resp.json();
+
+    console.log(data);
+    console.log(data.mensaje);
+  }
 
   useEffect(() => {
     getProduct()
@@ -54,20 +74,20 @@ function ProductView() {
     <Link to="/products">
       <FaArrowLeft />
     </Link>
-      <button onClick={() => setEdit(!edit)}>Editar</button>
+      <button onClick={() => {setEdit(!edit) ; setBotonEdit("Cancelar")}}>{edit ? "Cancelar" : "Editar"}</button>
       {edit ? (
         <div>
-          <form action="">
+          <form onSubmit={(e) => {
+            editProduct()
+          }}>
 
             <div>
-              <label htmlFor="">Imgagen Actual</label>
-              <img src={imgLink} style={{width:"150px"}}/>
-              <label>Nueva Imgagen</label>
-              <input type="text" placeholder='Pegar el link de la imagen' value={newImg} style={{width:"150px"}} onChange={(e) => {setNewImg(e.target.value) ; setImgError(false)}}/>
-              <br />
-              {newImg && (
-                <img src={newImg} style={{width:"150px"}} onError={() => setImgError(true)}/>
+              <label>Cambiar Imagen</label>
+              {imgLink && (
+                <img src={imgLink} style={{width:"150px"}}/>
               )}
+              <input type="text" placeholder='Pegar el link de la imagen' value={imgLink} style={{width:"150px"}} onChange={(e) => {setImgLink(e.target.value)}}/>
+              <br />
             </div>
             <br />
 
@@ -76,25 +96,28 @@ function ProductView() {
             <br />
 
             <label>Precio</label>
-            <input type="text" value={precio} onChange={(e) => setPrecio(e.target.value)}/>
+            <input type="number" step="0.01" min="0" value={precio} onChange={(e) => setPrecio(e.target.value)}/>
             <br />
 
             <label>Stock</label>
-            <input type="text" value={stock} onChange={(e) => setStock(e.target.value)}/>
+            <input type="number" min="0" value={stock} onChange={(e) => setStock(e.target.value)}/>
             <br />
 
             <label>Descripcion</label>
-            <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
+            <textarea type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
             <br />
 
             <label>Categoria</label>
             <input type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)}/>
+
+            <br />
+            <button type='submit'>Guardar</button>
           </form>
         </div>
       ) : (
         <div>
 
-          <img src={product.img} alt="" />
+          <img src={product.img} style={{width:"150px"}} />
           <p>{product.nombre}</p>
           <p>{product.precio}</p>
           <p>{product.descripcion}</p>
