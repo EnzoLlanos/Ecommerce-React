@@ -1,59 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-
+import React, { useMemo, useState } from 'react';
 import './ProductsList.css';
-import useHeader from '../../../hooks/useHeader';
+import { Link } from 'react-router-dom';
+
+const products = [
+  { id: '8289', name: 'Product 4', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '456', name: 'Product 5', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '3456', name: 'Product 6', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '123', name: 'Product 7', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '8', name: 'Product 8', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '3456-2', name: 'Product 9', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '123-2', name: 'Product 10', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+  { id: '8-2', name: 'Product 11', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
+];
 
 function ProductsList() {
-  useHeader({ titulo: "Lista de Productos", mostrarBuscador: true, mostrarBotonNuevo: true });
-  const [products, setProducts] = useState([])
-  const getProducts = async() => {
-    const resp = await fetch("http://localhost:3000/api/productos/",{
-      method : "GET",
-      headers: {
-      "Content-Type": "application/json",
-      }
-    })
-    const data = await resp.json();
-    setProducts(data.data);
-  }
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-  
+  const [query, setQuery] = useState('');
+  const filteredProducts = useMemo(() => products.filter(({ name, id }) =>
+    `${name} ${id}`.toLowerCase().includes(query.toLowerCase())), [query]);
 
   return (
-    <div className="products-list">
-      <h1>Products List</h1>
+    <main className="products-page">
+      <header className="products-page__header">
+        <h1>Productos</h1>
+        <div className="products-page__actions">
+          <label className="search-field" aria-label="Buscar productos">
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar productos" />
+            <span aria-hidden="true">⌕</span>
+          </label>
+          <Link className="button button--primary" to="/products/new">Agregar Producto</Link>
+        </div>
+      </header>
 
-      <table>
-
-        <thead>
-          <tr>
-            <th>IMG</th>
-            <th>Nombre</th>
-            <th>Stock</th>
-            <th>Precio</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {products.map((p) => (
-            <tr key={p.id}>
-              <td><img src={p.img} style={{ width: "60px", height: "60px", objectFit: "cover" }} alt="" /></td>
-              <td>{p.nombre}</td>
-              <td>{p.stock}</td>
-              <td>${p.precio}</td>
-              <td><NavLink to={`/products/${p.id}`}>Ver mas</NavLink></td>
-            </tr>
-          ))}
-
-        </tbody>
-      </table>
-    </div>
+      <section className="product-list" aria-label="Listado de productos">
+        {filteredProducts.map((product) => (
+          <Link className="product-card" to={`/products/${product.id}`} key={product.id}>
+            <img src={product.image} alt="" />
+            <span className="product-card__info">
+              <strong>{product.name}</strong>
+              <small>#{product.id}</small>
+            </span>
+            <span className="product-card__arrow" aria-hidden="true">›</span>
+          </Link>
+        ))}
+        {filteredProducts.length === 0 && <p className="product-list__empty">No encontramos productos para esa búsqueda.</p>}
+      </section>
+    </main>
   );
 }
 

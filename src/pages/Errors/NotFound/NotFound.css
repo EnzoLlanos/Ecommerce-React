@@ -1,0 +1,14 @@
+.not-found {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: #202020;
+  color: #eee;
+  text-align: center;
+}
+
+.not-found h1 { font-size: 24px; font-weight: 500; }
+.not-found p { color: #b8b8b8; }
+.not-found a { color: #fff; }

@@ -1,104 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './ProductView.css';
-import { useParams } from 'react-router-dom';
-import useHeader from '../../../hooks/useHeader';
+import { Link, useParams } from 'react-router-dom';
 
 function ProductView() {
-  
-  const [product,setProduct] = useState({})
-  const [edit,setEdit] = useState(false)
-
-  const [nombre,setNombre] = useState("")
-  const [descripcion,setDescripcion] = useState("")
-  const [precio,setPrecio] = useState("")
-  const [stock,setStock] = useState("")
-  const [categoria,setCategoria] = useState("")
-  const [imgLink,setImgLink] = useState("")
-
-  const [newImg,setNewImg] = useState("")
-  const [imgError,setImgError] = useState(false)
-
   const { id } = useParams();
-  useHeader({ titulo: `Producto / #${id}`, backLink: "/products" });
-  const getProduct = async()=> {
-
-    const resp = await fetch(`http://localhost:3000/api/productos/${id}`,{
-      method : "GET",
-      headers: {
-      "Content-Type": "application/json",
-      }
-    })
-    
-    const data = await resp.json()
-    setProduct(data.data)
-
-    setNombre(data.data.nombre)
-    setPrecio(data.data.precio)
-    setStock(data.data.stock)
-    setDescripcion(data.data.descripcion)
-    setImgLink(data.data.img)
-    setCategoria(data.data.categoria)
-    
-
-  }
-
-
-  useEffect(() => {
-    getProduct()
-  }, [])
-
+  const [stock, setStock] = useState(1);
   return (
-    <>
-      <button onClick={() => setEdit(!edit)}>Editar</button>
-      {edit ? (
-        <div>
-          <form action="">
-
-            <div>
-              <label htmlFor="">Imgagen Actual</label>
-              <img src={imgLink} style={{width:"150px"}}/>
-              <label>Nueva Imgagen</label>
-              <input type="text" placeholder='Pegar el link de la imagen' value={newImg} style={{width:"150px"}} onChange={(e) => {setNewImg(e.target.value) ; setImgError(false)}}/>
-              <br />
-              {newImg && (
-                <img src={newImg} style={{width:"150px"}} onError={() => setImgError(true)}/>
-              )}
-            </div>
-            <br />
-
-            <label>Nombre</label>
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
-            <br />
-
-            <label>Precio</label>
-            <input type="text" value={precio} onChange={(e) => setPrecio(e.target.value)}/>
-            <br />
-
-            <label>Stock</label>
-            <input type="text" value={stock} onChange={(e) => setStock(e.target.value)}/>
-            <br />
-
-            <label>Descripcion</label>
-            <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
-            <br />
-
-            <label>Categoria</label>
-            <input type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)}/>
-          </form>
-        </div>
-      ) : (
-        <div>
-
-          <img src={product.img} alt="" />
-          <p>{product.nombre}</p>
-          <p>{product.precio}</p>
-          <p>{product.descripcion}</p>
-          <p>{product.categoria}</p>
-
-        </div>
-      )}
-    </>
-  )
+    <main className="product-view">
+      <header className="product-view__header">
+        <h1><Link to="/products">Productos</Link><span>›</span> #{id}</h1>
+        <button className="button button--danger">Eliminar</button>
+      </header>
+      <section className="product-summary">
+        <img src="https://placehold.co/96x96/cccccc/444?text=Producto" alt="Producto" />
+        <div><h2>Alfajores Havanna Chocolate 12 Unidades</h2><div className="product-summary__stats"><b>19.900</b><small>PUNTOS<br />SUPERCLUB</small><b>999</b><small>STOCK<br />DISPONIBLE</small><span>● Havanna SL</span></div></div>
+      </section>
+      <form className="product-form" onSubmit={(event) => event.preventDefault()}>
+        <h2>Información</h2>
+        <label>Nombre<input defaultValue="Alfajores Havanna Chocolate 12 Unidades" /></label>
+        <label>Valor<input type="number" defaultValue="19900" /></label>
+        <label>Stock<span className="stock-control"><button type="button" onClick={() => setStock(Math.max(0, stock - 1))}>−</button><output>{stock}</output><button type="button" onClick={() => setStock(stock + 1)}>+</button></span></label>
+        <label>Descripción<textarea defaultValue="Alfajores rellenos con dulce de leche y cobertura de chocolate." /></label>
+        <label>Tienda<select defaultValue="havanna"><option value="havanna">Havanna SL</option><option value="otra">Otra tienda</option></select></label>
+        <h2 className="product-form__gallery-title">Galería de Imágenes</h2>
+        <label>Nueva Imagen<input placeholder="Pegá la URL de la imagen" /></label>
+      </form>
+    </main>
+  );
 }
 
 export default ProductView;
