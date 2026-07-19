@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import '../ProductView/ProductView.css';
-import { Link } from 'react-router-dom';
+import useHeader from '../../../hooks/useHeader';
 
 function NewProduct() {
   const [stock, setStock] = useState(1);
+  useHeader({ titulo: 'Nuevo producto', mostrarBuscador: false, backLink: '/products' });
 
   return (
     <main className="product-view">
-      <header className="product-view__header">
-        <h1><Link to="/products">Productos</Link><span>›</span> Nuevo producto</h1>
-      </header>
       <form className="product-form" onSubmit={(event) => event.preventDefault()}>
         <h2>Información</h2>
         <label>Nombre<input placeholder="Nombre del producto" /></label>

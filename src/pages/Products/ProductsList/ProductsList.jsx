@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import './ProductsList.css';
 import { Link } from 'react-router-dom';
+import useHeader from '../../../hooks/useHeader';
 
 const products = [
   { id: '8289', name: 'Product 4', image: 'https://placehold.co/96x96/cccccc/444?text=+' },
@@ -17,19 +18,10 @@ function ProductsList() {
   const [query, setQuery] = useState('');
   const filteredProducts = useMemo(() => products.filter(({ name, id }) =>
     `${name} ${id}`.toLowerCase().includes(query.toLowerCase())), [query]);
-
+  useHeader({ titulo: `Productos`, mostrarBuscador: false });
   return (
     <main className="products-page">
-      <header className="products-page__header">
-        <h1>Productos</h1>
-        <div className="products-page__actions">
-          <label className="search-field" aria-label="Buscar productos">
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar productos" />
-            <span aria-hidden="true">⌕</span>
-          </label>
-          <Link className="button button--primary" to="/products/new">Agregar Producto</Link>
-        </div>
-      </header>
+      
 
       <section className="product-list" aria-label="Listado de productos">
         {filteredProducts.map((product) => (

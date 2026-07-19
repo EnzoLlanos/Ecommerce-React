@@ -24,7 +24,7 @@ function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, back
             <div className="header-actions">
                {mostrarBuscador && (
                 <form className="form-buscador">
-                    <input type="search" placeholder="🔍" className="buscador"/>
+                    <input type="search" placeholder="⌕" className="buscador"/>
                 </form>
             
                 )}

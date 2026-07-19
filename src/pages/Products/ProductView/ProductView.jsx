@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import './ProductView.css';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import useHeader from '../../../hooks/useHeader';
 
 function ProductView() {
   const { id } = useParams();
   const [stock, setStock] = useState(1);
+  useHeader({ titulo: `Producto #${id}`, mostrarBuscador: false, backLink: '/products' });
   return (
     <main className="product-view">
-      <header className="product-view__header">
-        <h1><Link to="/products">Productos</Link><span>›</span> #{id}</h1>
-        <button className="button button--danger">Eliminar</button>
-      </header>
       <section className="product-summary">
         <img src="https://placehold.co/96x96/cccccc/444?text=Producto" alt="Producto" />
         <div><h2>Alfajores Havanna Chocolate 12 Unidades</h2><div className="product-summary__stats"><b>19.900</b><small>PUNTOS<br />SUPERCLUB</small><b>999</b><small>STOCK<br />DISPONIBLE</small><span>● Havanna SL</span></div></div>

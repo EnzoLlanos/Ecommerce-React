@@ -11,3 +11,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #202020;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2a2a2a;
+}

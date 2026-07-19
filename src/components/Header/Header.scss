@@ -3,6 +3,10 @@
     align-items: center;
     padding: 20px;
     gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgb(34, 34, 34);
 }
 
 .menu-toggle {
