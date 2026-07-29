@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaBars, FaArrowLeft } from "react-icons/fa";
 
 function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, backLink = null, mostrarBotonNuevaCategoria = false}) {
-    const { menuAbierto, setMenuAbierto } = useHeaderConfig();
+    const { menuAbierto, setMenuAbierto, searchQuery, setSearchQuery } = useHeaderConfig();
     return(
         <header className="header">
 
@@ -24,7 +24,7 @@ function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, back
             <div className="header-actions">
                {mostrarBuscador && (
                 <form className="form-buscador">
-                    <input type="search" placeholder="⌕" className="buscador"/>
+                    <input type="search" placeholder="⌕" className="buscador" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
                 </form>
             
                 )}

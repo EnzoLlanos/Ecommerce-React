@@ -3,6 +3,7 @@ import { createContext, useState, useContext } from "react";
 const HeaderContext = createContext();
 
 export function HeaderProvider({ children }) {
+  const [searchQuery, setSearchQuery] = useState('');
   const [headerConfig, setHeaderConfig] = useState({
     titulo: "",
     mostrarBuscador: true,
@@ -14,7 +15,7 @@ export function HeaderProvider({ children }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   return(
-    <HeaderContext.Provider value={{headerConfig, setHeaderConfig, menuAbierto, setMenuAbierto}}>
+    <HeaderContext.Provider value={{headerConfig, setHeaderConfig, menuAbierto, setMenuAbierto, searchQuery, setSearchQuery }}>
         {children}
     </HeaderContext.Provider>
   );
