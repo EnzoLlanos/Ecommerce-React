@@ -3,7 +3,7 @@ import { useHeaderConfig } from "../../context/HeaderContext";
 import { Link } from "react-router-dom";
 import { FaBars, FaArrowLeft } from "react-icons/fa";
 
-function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, backLink = null}) {
+function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, backLink = null, mostrarBotonNuevaCategoria = false}) {
     const { menuAbierto, setMenuAbierto } = useHeaderConfig();
     return(
         <header className="header">
@@ -29,8 +29,16 @@ function Header({titulo, mostrarBuscador = true, mostrarBotonNuevo = false, back
             
                 )}
                 {mostrarBotonNuevo && (
-                    <button className="boton-nuevo">✚</button>
+                    <Link to="/products/new">
+                        <button className="boton-nuevo">✚</button>
+                    </Link>
+                    
                 )}
+                {mostrarBotonNuevaCategoria && (
+                <Link to={"/categories/new"}>
+                    <button className="boton-nuevo">✚</button>
+                </Link>
+    )}
              
             </div>
         </header>

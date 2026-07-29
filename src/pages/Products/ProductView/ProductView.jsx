@@ -76,63 +76,69 @@ function ProductView() {
         </Link>
         <button className="button button--primary" onClick={() => {setEdit(!edit) ; setBotonEdit("Cancelar")}}>{edit ? "Cancelar" : "Editar"}</button>
       </div>
-      {edit ? (
-        <form className="product-form" onSubmit={(e) => {
-          e.preventDefault()
-          editProduct()
-        }}>
-          <h2>Información</h2>
-          <label>
-            Cambiar Imagen
-            {imgLink && (
-              <img src={imgLink} className="product-form__img-preview"/>
-            )}
+      <div className="product-form">
+        <h2>Información</h2>
+        <label>
+          Imagen
+          {imgLink && (
+            <img src={imgLink} className="product-form__img-preview"/>
+          )}
+          {edit ? (
             <input type="text" placeholder='Pegar el link de la imagen' value={imgLink} onChange={(e) => {setImgLink(e.target.value)}}/>
-          </label>
+          ) : (
+            <span className="product-form__value">{imgLink}</span>
+          )}
+        </label>
 
-          <label>
-            Nombre
+        <label>
+          Nombre
+          {edit ? (
             <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
-          </label>
+          ) : (
+            <span className="product-form__value">{nombre}</span>
+          )}
+        </label>
 
-          <label>
-            Precio
+        <label>
+          Precio
+          {edit ? (
             <input type="number" step="0.01" min="0" value={precio} onChange={(e) => setPrecio(e.target.value)}/>
-          </label>
+          ) : (
+            <span className="product-form__value">${precio}</span>
+          )}
+        </label>
 
-          <label>
-            Stock
+        <label>
+          Stock
+          {edit ? (
             <input type="number" min="0" value={stock} onChange={(e) => setStock(e.target.value)}/>
-          </label>
+          ) : (
+            <span className="product-form__value">{stock}</span>
+          )}
+        </label>
 
-          <label>
-            Descripcion
+        <label>
+          Descripcion
+          {edit ? (
             <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
-          </label>
+          ) : (
+            <span className="product-form__value">{descripcion}</span>
+          )}
+        </label>
 
-          <label>
-            Categoria
+        <label>
+          Categoria
+          {edit ? (
             <input type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)}/>
-          </label>
+          ) : (
+            <span className="product-form__value">{categoria}</span>
+          )}
+        </label>
 
-          <button className="button button--primary" type='submit'>Guardar</button>
-        </form>
-      ) : (
-        <div className="product-summary">
-          <img src={product.img} />
-          <div>
-            <h2>{product.nombre}</h2>
-            <div className="product-summary__stats">
-              <b>{product.precio}</b>
-              <small>PRECIO</small>
-              <b>{product.stock}</b>
-              <small>STOCK<br />DISPONIBLE</small>
-              <span>{product.categoria}</span>
-            </div>
-            <p>{product.descripcion}</p>
-          </div>
-        </div>
-      )}
+        {edit && (
+          <button className="button button--primary" type="button" onClick={() => editProduct()}>Guardar</button>
+        )}
+      </div>
     </main>
   )
 }

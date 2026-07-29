@@ -7,6 +7,7 @@ export function HeaderProvider({ children }) {
     titulo: "",
     mostrarBuscador: true,
     mostrarBotonNuevo: false,
+    mostrarBotonNuevaCategoria: false,
     backLink: null,
   })
 
