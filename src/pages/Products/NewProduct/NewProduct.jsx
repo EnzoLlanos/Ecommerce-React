@@ -1,93 +1,114 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../ProductView/ProductView.css';
 import useHeader from '../../../hooks/useHeader';
 
+import { Alert } from "../../../components/Alert/Alert";
+
+const initialForm = {
+  nombre: "",
+  descripcion: "",
+  precio: "",
+  stock: "",
+  categoria: "",
+  img: ""
+};
+
 function NewProduct() {
   const navigate = useNavigate();
-  const [nombre, setNombre] = useState('');
-  const [precio, setPrecio] = useState('');
-  const [stock, setStock] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [categoria, setCategoria] = useState('');
-  const [imgLink, setImgLink] = useState('');
-  const [categorias, setCategorias] = useState([]);
+  const [form, setForm] = useState(initialForm);
+  const [alert, setAlert] = useState({
+    visible: false,
+    type: "",
+    title: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+
   useHeader({ titulo: 'Nuevo producto', mostrarBuscador: false, backLink: '/products' });
 
-  const getCategorias = async () => {
-    const resp = await fetch('http://localhost:3000/api/productos/', {
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const data = await resp.json();
-    const cats = [...new Set(data.data.map(p => p.categoria))];
-    setCategorias(cats);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
   };
 
-  const createProduct = async (e) => {
-    e.preventDefault();
-    const resp = await fetch('http://localhost:3000/api/productos/crear', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  setLoading(true);
+
+  if (Number(form.precio) <= 0 || Number(form.stock) < 0) {
+    setAlert({ visible: true, type: "error", title: "Error", message: "Precio debe ser mayor a 0 y Stock no puede ser negativo." });
+    setLoading(false);
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/api/productos/crear", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        nombre,
-        precio: parseFloat(precio),
-        stock: parseInt(stock),
-        descripcion,
-        categoria,
-        img: imgLink
+        nombre: form.nombre.trim(),
+        descripcion: form.descripcion.trim(),
+        precio: Number(form.precio),
+        stock: Number(form.stock),
+        categoria: form.categoria.trim(),
+        img: form.img.trim()
       })
     });
-    const data = await resp.json();
-    if (data.success) navigate('/products');
-  };
 
-  useEffect(() => {
-    getCategorias();
-  }, []);
+    if (!response.ok) throw new Error("No se pudo guardar el producto");
+
+    setForm(initialForm);
+    setAlert({ visible: true, type: "success", title: "¡Listo!", message: "Producto guardado correctamente." });
+    setTimeout(() => navigate('/products'), 1500);
+  } catch (err) {
+    setAlert({ visible: true, type: "error", title: "Error", message: "No se pudo guardar el producto. Intenta nuevamente." });
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="product-view">
-      <form className="product-form" onSubmit={createProduct}>
+
+      <form className="product-form" onSubmit={handleSubmit}>
         <h2>Información</h2>
 
         <label>
           Nombre
-          <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-        </label>
-
-        <label>
-          Precio
-          <input type="number" step="0.01" min="0" value={precio} onChange={(e) => setPrecio(e.target.value)} required />
-        </label>
-
-        <label>
-          Stock
-          <input type="number" min="0" value={stock} onChange={(e) => setStock(e.target.value)} required />
+          <input type="text" name="nombre" value={form.nombre} onChange={handleChange} required />
         </label>
 
         <label>
           Descripción
-          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
+          <textarea name="descripcion" value={form.descripcion} onChange={handleChange} rows="4" required />
+        </label>
+
+        <label>
+          Precio
+          <input type="number" name="precio" value={form.precio} onChange={handleChange} min="0" step="0.01" required />
+        </label>
+
+        <label>
+          Stock
+          <input type="number" name="stock" value={form.stock} onChange={handleChange} min="0" step="1" required />
         </label>
 
         <label>
           Categoría
-          <select value={categoria} onChange={(e) => setCategoria(e.target.value)} required>
-            <option value="" disabled>Seleccionar categoría</option>
-            {categorias.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
+          <input type="text" name="categoria" value={form.categoria} onChange={handleChange} required />
         </label>
 
-        <h2 className="product-form__gallery-title">Galería de Imágenes</h2>
         <label>
-          Nueva Imagen
-          {imgLink && <img src={imgLink} className="product-form__img-preview" />}
-          <input type="text" placeholder="Pegá la URL de la imagen" value={imgLink} onChange={(e) => setImgLink(e.target.value)} />
+          Imagen
+          <input type="url" name="img" value={form.img} onChange={handleChange} placeholder="https://..."  />
         </label>
 
-        <button className="button button--primary" type="submit">Guardar producto</button>
+
+        <Alert alert={alert} onClose={() => setAlert(prev => ({...prev, visible: false}))} />
+        <button className="button button--primary" type="submit" disabled={loading}>
+          {loading ? "Guardando..." : "Guardar"}
+        </button>
       </form>
     </main>
   );

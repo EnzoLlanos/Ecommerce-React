@@ -13,3 +13,5 @@
 
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 25px; padding: 0 15px; border: 0; border-radius: 999px; text-decoration: none; font-size: 10px; cursor: pointer; }
 .button--primary { background: #566166; color: #fff; }
+.button--danger {background: red; color: #fff; margin-top: 10px}
+.button { min-height: 27px; padding: 0 20px; font-size: 14px; }

@@ -1,3 +1,9 @@
+/* Ajustá estos valores para cambiar los botones de la pantalla de categorías. */
+:root {
+  --category-action-width: 70px;
+  --category-action-height: 32px;
+}
+
 .categories-list {
   padding: 20px;
   color: #e9e9e9;
@@ -14,3 +20,21 @@
 .product-card:hover { background: #343434; transform: translateY(-1px); }
 .product-card__info strong { font-size: 16px; font-weight: 400; }
 .product-card__arrow { margin-left: auto; padding: 0 14px; font-size: 32px; font-weight: 300; }
+.product-card { display: flex; align-items: center; gap: 8px; }
+.product-card__link { display: flex; align-items: center; flex: 1; min-width: 0; text-decoration: none; color: inherit; }
+.product-card__actions { display: flex; flex-shrink: 0; gap: 4px; }
+.categories-list .button { background: #505052; color: #e9e9e9; }
+.categories-list .button:hover { opacity: .8; }
+
+.category-action-button {
+  flex: 0 0 var(--category-action-width);
+  width: var(--category-action-width);
+  height: var(--category-action-height);
+  min-height: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.categories-list .button--danger.category-action-button {
+  margin-top: 0;
+}

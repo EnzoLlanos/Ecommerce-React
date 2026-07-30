@@ -12,6 +12,7 @@ import Layout from './components/Layout/Layout';
 import CategoriesList from './pages/Categories/CategoriesList/CategoriesList';
 import NewCategories from './pages/Categories/NewCategories/NewCategories';
 import CategorieView from "./pages/Categories/CategorieView/CategorieView";
+import EditCategories from "./pages/Categories/EditCategories/EditCategories";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='/categories' element={<CategoriesList/>}/>
             <Route path="/categories/:nombre" element={<CategorieView/>}/>
             <Route path='/categories/new' element={<NewCategories/>}/>
+            <Route path="/categories/edit/:id" element={<EditCategories/>}/>
             <Route path= "/profile" element= {<Profile/>}/>
             <Route path= "*" element= {<NotFound/>}/>
           </Routes>

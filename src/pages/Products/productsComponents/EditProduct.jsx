@@ -1,8 +1,9 @@
 import { useState } from "react"
 import '../ProductView/ProductView.css'
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export function EditProduct({product,id,setEdit,setAlert}){
-
+  const navigate = useNavigate();
   const [form,setForm] = useState({
     nombre: product.nombre,
     descripcion: product.descripcion,
@@ -58,7 +59,16 @@ export function EditProduct({product,id,setEdit,setAlert}){
 
 
 
-   
+    const eliminarProducto = async (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar este producto?")) return;
+    try {
+      const resp = await fetch(`http://localhost:3000/api/productos/${id}`, { method: "DELETE" });
+      if (!resp.ok) throw new Error();
+      navigate('/products');
+    } catch (err) {
+      alert("No se pudo eliminar el producto");
+    }
+  };
   
 
   return(
@@ -102,7 +112,7 @@ export function EditProduct({product,id,setEdit,setAlert}){
         <button className="button button--primary" type='submit'>Guardar</button>
 
       </form>
-        <button className="button button--primary" >Eliminar</button>
+        <button className="button button--danger" style={{ width: '100%' }} onClick={() => eliminarProducto(product.id)}>Eliminar</button>
     </div>
   )
 }

@@ -30,7 +30,7 @@ function Home({userName}) {
           <p><strong>10</strong> Categorias</p>
         </div>
         <div className="home__actions">
-          <Link to="/categorias">
+          <Link to="/categories">
             <button className="btn btn--outline">Ver Listado</button>
           </Link>
           <Link to="/categories/new">
