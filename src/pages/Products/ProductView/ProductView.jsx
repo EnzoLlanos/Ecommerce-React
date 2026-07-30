@@ -4,6 +4,9 @@ import { useParams, Link } from 'react-router-dom';
 import useHeader from '../../../hooks/useHeader';
 import { FaArrowLeft } from 'react-icons/fa';
 
+import { EditProduct } from '../productsComponents/EditProduct';
+import { Alert } from '../../../components/Alert/Alert';
+
 function ProductView() {
   
   const [product,setProduct] = useState({})
@@ -15,6 +18,13 @@ function ProductView() {
   const [stock,setStock] = useState("")
   const [categoria,setCategoria] = useState("")
   const [imgLink,setImgLink] = useState("")
+
+  const [alert, setAelert] = useState({
+    visible:false,
+    type: "",
+    title: "",
+    message : ""
+  })
 
   const [botonEdit,setBotonEdit] = useState("Editar")
 
@@ -32,42 +42,13 @@ function ProductView() {
     const data = await resp.json()
     setProduct(data.data)
 
-    setNombre(data.data.nombre)
-    setPrecio(data.data.precio)
-    setStock(data.data.stock)
-    setDescripcion(data.data.descripcion)
-    setImgLink(data.data.img)
-    setCategoria(data.data.categoria)
-    
-
-  }
-
-  const editProduct = async() => {
-    const resp = await fetch(`http://localhost:3000/api/productos/Edit/${id}`,{
-      method : "PUT",
-      headers : {
-        "Content-Type": "application/json",
-      },
-      body : JSON.stringify({
-        nombre,
-        precio,
-        descripcion,
-        stock,
-        categoria,
-        img: imgLink
-      })
-    })
-
-    const data = await resp.json();
-
-    console.log(data);
-    console.log(data.mensaje);
   }
 
   useEffect(() => {
     getProduct()
   }, [])
 
+  
   return (
     <main className="product-view">
       <div className="product-view__toolbar">
@@ -76,68 +57,53 @@ function ProductView() {
         </Link>
         <button className="button button--primary" onClick={() => {setEdit(!edit) ; setBotonEdit("Cancelar")}}>{edit ? "Cancelar" : "Editar"}</button>
       </div>
+
+     <Alert alert={alert} onClose={() => setAelert(prev => ({...prev, visible:false}))}/>
+
       <div className="product-form">
         <h2>Información</h2>
-        <label>
-          Imagen
-          {imgLink && (
-            <img src={imgLink} className="product-form__img-preview"/>
-          )}
-          {edit ? (
-            <input type="text" placeholder='Pegar el link de la imagen' value={imgLink} onChange={(e) => {setImgLink(e.target.value)}}/>
-          ) : (
-            <span className="product-form__value">{imgLink}</span>
-          )}
-        </label>
 
-        <label>
-          Nombre
           {edit ? (
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
-          ) : (
-            <span className="product-form__value">{nombre}</span>
-          )}
-        </label>
+            
+            <EditProduct product={product} id={id} setAlert={setAelert} setEdit={setEdit}></EditProduct>
 
-        <label>
-          Precio
-          {edit ? (
-            <input type="number" step="0.01" min="0" value={precio} onChange={(e) => setPrecio(e.target.value)}/>
           ) : (
-            <span className="product-form__value">${precio}</span>
-          )}
-        </label>
 
-        <label>
-          Stock
-          {edit ? (
-            <input type="number" min="0" value={stock} onChange={(e) => setStock(e.target.value)}/>
-          ) : (
-            <span className="product-form__value">{stock}</span>
-          )}
-        </label>
+            
+            <div>
+              <label>
+                {product.img && (
+                  <img src={product.img} className="product-form__img-preview"/>
+                )}
+                Url Imagen
+                <span className="product-form__value">{product.img}</span>
+              </label>
 
-        <label>
-          Descripcion
-          {edit ? (
-            <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
-          ) : (
-            <span className="product-form__value">{descripcion}</span>
-          )}
-        </label>
+              <label>
+                Nombre
+                <span className="product-form__value">{product.nombre}</span>
+              </label>
+              <label>
+                Precio
+                <span className="product-form__value">${product.precio}</span>
+              </label>
 
-        <label>
-          Categoria
-          {edit ? (
-            <input type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)}/>
-          ) : (
-            <span className="product-form__value">{categoria}</span>
-          )}
-        </label>
+              <label>
+                Stock
+                <span className="product-form__value">{product.stock}</span>
+              </label>
 
-        {edit && (
-          <button className="button button--primary" type="button" onClick={() => editProduct()}>Guardar</button>
-        )}
+              <label>
+                Descripcion
+                <span className="product-form__value">{product.descripcion}</span>
+              </label>
+
+              <label>
+                Categoria
+                <span className="product-form__value">{product.categoria}</span>
+              </label>
+            </div>
+          )}
       </div>
     </main>
   )
